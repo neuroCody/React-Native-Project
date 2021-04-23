@@ -6,7 +6,8 @@ import { Loading } from './LodingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { deleteFavorite } from '../redux/ActionCreators'
+import { deleteFavorite } from '../redux/ActionCreators';
+import * as Animatable from 'react-native-animatable';
 
 
 const mapStateToProps = state => {
@@ -89,13 +90,15 @@ class Favorites extends Component {
             );
         }
         return(
-            <FlatList
-                data={this.props.campsites.campsites.filter(
-                    campsites=> this.props.favorites.includes(campsites.id)
-                )}
-                renderItem={renderFavoriteItem}
-                keyExtreactor={item=> item.id.toString()}
-            />
+            <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+                <FlatList
+                    data={this.props.campsites.campsites.filter(
+                        campsites=> this.props.favorites.includes(campsites.id)
+                    )}
+                    renderItem={renderFavoriteItem}
+                    keyExtreactor={item=> item.id.toString()}
+                />
+            </Animatable.View>
         )
     }
 }
